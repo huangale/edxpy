@@ -1,0 +1,789 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Slicin}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Datasets/direct\PYZus{}marketing.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}        recency   history\_segment  history  mens  womens   zip\_code  newbie  \textbackslash{}
+        0           10    2) \$100 - \$200   142.44     1       0  Surburban       0   
+        1            6    3) \$200 - \$350   329.08     1       1      Rural       1   
+        2            7    2) \$100 - \$200   180.65     0       1  Surburban       1   
+        3            9    5) \$500 - \$750   675.83     1       0      Rural       1   
+        4            2      1) \$0 - \$100    45.34     1       0      Urban       0   
+        5            6    2) \$100 - \$200   134.83     0       1  Surburban       0   
+        6            9    3) \$200 - \$350   280.20     1       0  Surburban       1   
+        7            9      1) \$0 - \$100    46.42     0       1      Urban       0   
+        8            9    5) \$500 - \$750   675.07     1       1      Rural       1   
+        9           10      1) \$0 - \$100    32.84     0       1      Urban       1   
+        10           7    5) \$500 - \$750   548.91     0       1      Urban       1   
+        11           1    3) \$200 - \$350   211.45     0       1      Urban       1   
+        12           5    5) \$500 - \$750   642.90     0       1  Surburban       1   
+        13           2    2) \$100 - \$200   101.64     0       1      Urban       0   
+        14           4    3) \$200 - \$350   241.42     0       1      Rural       1   
+        15           3      1) \$0 - \$100    58.13     1       0      Urban       1   
+        16           5      1) \$0 - \$100    29.99     1       0  Surburban       0   
+        17           9    2) \$100 - \$200   112.35     1       0      Rural       0   
+        18          11    3) \$200 - \$350   219.04     1       1  Surburban       0   
+        19           5  6) \$750 - \$1,000   828.42     1       0  Surburban       1   
+        20           9      1) \$0 - \$100    29.99     0       1  Surburban       1   
+        21          11    2) \$100 - \$200   182.32     1       0  Surburban       0   
+        22           2    2) \$100 - \$200   118.40     1       0  Surburban       0   
+        23           2      1) \$0 - \$100    29.99     0       1      Urban       1   
+        24           4      1) \$0 - \$100    78.24     1       0  Surburban       0   
+        25           6    2) \$100 - \$200   139.87     0       1      Rural       1   
+        26          12    2) \$100 - \$200   115.39     0       1  Surburban       0   
+        27           6    2) \$100 - \$200   162.98     0       1  Surburban       0   
+        28           7    4) \$350 - \$500   435.73     0       1      Urban       1   
+        29           2    3) \$200 - \$350   203.35     1       0      Rural       0   
+        {\ldots}        {\ldots}               {\ldots}      {\ldots}   {\ldots}     {\ldots}        {\ldots}     {\ldots}   
+        63970        4    2) \$100 - \$200   191.15     0       1  Surburban       1   
+        63971        5    5) \$500 - \$750   549.87     0       1  Surburban       1   
+        63972        3    5) \$500 - \$750   554.97     0       1  Surburban       1   
+        63973        8    4) \$350 - \$500   471.80     1       0  Surburban       1   
+        63974        8      1) \$0 - \$100    73.65     0       1  Surburban       0   
+        63975       10  6) \$750 - \$1,000   883.92     1       0      Urban       1   
+        63976        1    5) \$500 - \$750   710.72     1       1      Urban       1   
+        63977        8      1) \$0 - \$100    29.99     0       1  Surburban       0   
+        63978       10    2) \$100 - \$200   102.01     0       1      Urban       1   
+        63979       10    2) \$100 - \$200   168.21     0       1  Surburban       0   
+        63980        3    4) \$350 - \$500   487.10     0       1  Surburban       1   
+        63981        4    2) \$100 - \$200   125.53     0       1      Rural       1   
+        63982        5      1) \$0 - \$100    29.99     1       0      Urban       1   
+        63983        2      1) \$0 - \$100    83.03     0       1      Urban       0   
+        63984        2    3) \$200 - \$350   209.51     0       1      Urban       1   
+        63985        9      1) \$0 - \$100    29.99     1       0      Urban       0   
+        63986        9      1) \$0 - \$100    35.26     0       1      Urban       1   
+        63987        1      1) \$0 - \$100    79.70     1       0  Surburban       1   
+        63988        6      1) \$0 - \$100    32.98     1       0  Surburban       0   
+        63989       10    3) \$200 - \$350   304.30     1       1  Surburban       0   
+        63990        6      1) \$0 - \$100    80.02     0       1  Surburban       0   
+        63991        1    3) \$200 - \$350   306.10     1       0  Surburban       1   
+        63992        1    5) \$500 - \$750   519.69     1       1      Urban       1   
+        63993        4    4) \$350 - \$500   374.07     0       1  Surburban       0   
+        63994        7      1) \$0 - \$100    86.46     0       1      Urban       0   
+        63995       10    2) \$100 - \$200   105.54     1       0      Urban       0   
+        63996        5      1) \$0 - \$100    38.91     0       1      Urban       1   
+        63997        6      1) \$0 - \$100    29.99     1       0      Urban       1   
+        63998        1    5) \$500 - \$750   552.94     1       0  Surburban       1   
+        63999        1    4) \$350 - \$500   472.82     0       1  Surburban       0   
+        
+                    channel        segment  visit  conversion  spend  DM\_category  
+        0             Phone  Womens E-Mail      0           0    0.0            4  
+        1               Web      No E-Mail      0           0    0.0           11  
+        2               Web  Womens E-Mail      0           0    0.0            1  
+        3               Web    Mens E-Mail      0           0    0.0            2  
+        4               Web  Womens E-Mail      0           0    0.0            4  
+        5             Phone  Womens E-Mail      1           0    0.0            1  
+        6             Phone  Womens E-Mail      0           0    0.0            4  
+        7             Phone  Womens E-Mail      0           0    0.0            1  
+        8             Phone    Mens E-Mail      0           0    0.0            5  
+        9               Web  Womens E-Mail      0           0    0.0            1  
+        10            Phone  Womens E-Mail      1           0    0.0            1  
+        11            Phone  Womens E-Mail      0           0    0.0            1  
+        12     Multichannel  Womens E-Mail      0           0    0.0            1  
+        13              Web    Mens E-Mail      1           0    0.0            3  
+        14     Multichannel      No E-Mail      0           0    0.0            5  
+        15              Web      No E-Mail      1           0    0.0            6  
+        16            Phone    Mens E-Mail      0           0    0.0            2  
+        17              Web    Mens E-Mail      0           0    0.0            2  
+        18            Phone    Mens E-Mail      0           0    0.0            5  
+        19     Multichannel    Mens E-Mail      0           0    0.0            2  
+        20            Phone      No E-Mail      0           0    0.0            5  
+        21            Phone    Mens E-Mail      0           0    0.0            2  
+        22              Web    Mens E-Mail      1           0    0.0            2  
+        23            Phone      No E-Mail      0           0    0.0            5  
+        24              Web      No E-Mail      0           0    0.0            6  
+        25              Web    Mens E-Mail      0           0    0.0            3  
+        26            Phone    Mens E-Mail      1           0    0.0            3  
+        27              Web    Mens E-Mail      0           0    0.0            3  
+        28              Web      No E-Mail      0           0    0.0            5  
+        29              Web      No E-Mail      0           0    0.0            6  
+        {\ldots}             {\ldots}            {\ldots}    {\ldots}         {\ldots}    {\ldots}          {\ldots}  
+        63970           Web  Womens E-Mail      0           0    0.0            1  
+        63971         Phone  Womens E-Mail      0           0    0.0            1  
+        63972           Web      No E-Mail      0           0    0.0            5  
+        63973  Multichannel  Womens E-Mail      0           0    0.0            4  
+        63974         Phone    Mens E-Mail      0           0    0.0            3  
+        63975         Phone      No E-Mail      0           0    0.0            6  
+        63976         Phone      No E-Mail      0           0    0.0           11  
+        63977           Web      No E-Mail      1           0    0.0            5  
+        63978         Phone    Mens E-Mail      0           0    0.0            3  
+        63979         Phone      No E-Mail      0           0    0.0            5  
+        63980         Phone      No E-Mail      0           0    0.0            5  
+        63981         Phone      No E-Mail      0           0    0.0            5  
+        63982         Phone    Mens E-Mail      0           0    0.0            2  
+        63983         Phone      No E-Mail      0           0    0.0            5  
+        63984           Web  Womens E-Mail      0           0    0.0            1  
+        63985         Phone    Mens E-Mail      1           0    0.0            2  
+        63986           Web  Womens E-Mail      0           0    0.0            1  
+        63987           Web      No E-Mail      0           0    0.0            6  
+        63988           Web    Mens E-Mail      0           0    0.0            2  
+        63989           Web  Womens E-Mail      1           0    0.0            5  
+        63990         Phone      No E-Mail      0           0    0.0            5  
+        63991         Phone  Womens E-Mail      0           0    0.0            4  
+        63992         Phone    Mens E-Mail      0           0    0.0            5  
+        63993         Phone  Womens E-Mail      0           0    0.0            1  
+        63994           Web    Mens E-Mail      0           0    0.0            3  
+        63995           Web    Mens E-Mail      0           0    0.0            2  
+        63996         Phone    Mens E-Mail      0           0    0.0            3  
+        63997         Phone    Mens E-Mail      0           0    0.0            2  
+        63998  Multichannel  Womens E-Mail      0           0    0.0            4  
+        63999           Web    Mens E-Mail      0           0    0.0            3  
+        
+        [64000 rows x 13 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}    recency history\_segment  history  mens  womens   zip\_code  newbie channel  \textbackslash{}
+         0       10  2) \$100 - \$200   142.44     1       0  Surburban       0   Phone   
+         1        6  3) \$200 - \$350   329.08     1       1      Rural       1     Web   
+         
+                  segment  visit  conversion  spend  DM\_category  
+         0  Womens E-Mail      0           0    0.0            4  
+         1      No E-Mail      0           0    0.0           11  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{df}\PY{o}{.}\PY{n}{recency} \PY{o}{\PYZlt{}} \PY{l+m+mi}{7}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} 0        False
+         1         True
+         2        False
+         3        False
+         4         True
+         5         True
+         6        False
+         7        False
+         8        False
+         9        False
+         10       False
+         11        True
+         12        True
+         13        True
+         14        True
+         15        True
+         16        True
+         17       False
+         18       False
+         19        True
+         20       False
+         21       False
+         22        True
+         23        True
+         24        True
+         25        True
+         26       False
+         27        True
+         28       False
+         29        True
+                  {\ldots}  
+         63970     True
+         63971     True
+         63972     True
+         63973    False
+         63974    False
+         63975    False
+         63976     True
+         63977    False
+         63978    False
+         63979    False
+         63980     True
+         63981     True
+         63982     True
+         63983     True
+         63984     True
+         63985    False
+         63986    False
+         63987     True
+         63988     True
+         63989    False
+         63990     True
+         63991     True
+         63992     True
+         63993     True
+         63994    False
+         63995    False
+         63996     True
+         63997     True
+         63998     True
+         63999     True
+         Name: recency, Length: 64000, dtype: bool
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{recency}\PY{o}{\PYZlt{}}\PY{l+m+mi}{7}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{newbie}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}        recency history\_segment  history  mens  womens   zip\_code  newbie  \textbackslash{}
+         4            2    1) \$0 - \$100    45.34     1       0      Urban       0   
+         5            6  2) \$100 - \$200   134.83     0       1  Surburban       0   
+         13           2  2) \$100 - \$200   101.64     0       1      Urban       0   
+         16           5    1) \$0 - \$100    29.99     1       0  Surburban       0   
+         22           2  2) \$100 - \$200   118.40     1       0  Surburban       0   
+         24           4    1) \$0 - \$100    78.24     1       0  Surburban       0   
+         27           6  2) \$100 - \$200   162.98     0       1  Surburban       0   
+         29           2  3) \$200 - \$350   203.35     1       0      Rural       0   
+         30           2  3) \$200 - \$350   237.53     0       1  Surburban       0   
+         32           6  2) \$100 - \$200   128.01     0       1      Urban       0   
+         34           3    1) \$0 - \$100    29.99     1       0      Rural       0   
+         35           4  3) \$200 - \$350   218.72     0       1      Urban       0   
+         41           3    1) \$0 - \$100    99.23     1       0      Rural       0   
+         43           2  4) \$350 - \$500   492.02     1       0  Surburban       0   
+         44           1    1) \$0 - \$100    48.32     0       1      Urban       0   
+         46           2  4) \$350 - \$500   391.33     1       0  Surburban       0   
+         50           3  3) \$200 - \$350   203.30     0       1  Surburban       0   
+         55           6    1) \$0 - \$100    42.66     1       0  Surburban       0   
+         59           3  2) \$100 - \$200   143.93     0       1  Surburban       0   
+         61           2    1) \$0 - \$100    96.91     1       0  Surburban       0   
+         65           5  3) \$200 - \$350   222.07     0       1  Surburban       0   
+         70           2  3) \$200 - \$350   278.80     1       0      Rural       0   
+         72           2  4) \$350 - \$500   428.74     1       0      Rural       0   
+         76           4  2) \$100 - \$200   194.11     1       0      Urban       0   
+         79           2    1) \$0 - \$100    29.99     0       1  Surburban       0   
+         81           2    1) \$0 - \$100    95.33     0       1  Surburban       0   
+         86           2    1) \$0 - \$100    82.59     1       0  Surburban       0   
+         87           6  2) \$100 - \$200   165.77     0       1      Urban       0   
+         95           3  2) \$100 - \$200   133.51     1       0      Urban       0   
+         97           1    1) \$0 - \$100    47.44     0       1      Urban       0   
+         {\ldots}        {\ldots}             {\ldots}      {\ldots}   {\ldots}     {\ldots}        {\ldots}     {\ldots}   
+         63890        2  3) \$200 - \$350   229.79     1       1      Urban       0   
+         63891        4    1) \$0 - \$100    65.23     0       1      Urban       0   
+         63893        2  3) \$200 - \$350   288.30     1       1  Surburban       0   
+         63901        4  2) \$100 - \$200   158.91     1       0  Surburban       0   
+         63902        3  3) \$200 - \$350   309.39     1       1      Urban       0   
+         63904        1    1) \$0 - \$100    29.99     0       1  Surburban       0   
+         63906        4  3) \$200 - \$350   311.63     0       1      Urban       0   
+         63910        6    1) \$0 - \$100    29.99     1       0  Surburban       0   
+         63911        5  4) \$350 - \$500   373.13     0       1      Urban       0   
+         63915        4  3) \$200 - \$350   300.90     1       0  Surburban       0   
+         63916        6    1) \$0 - \$100    34.50     1       0      Urban       0   
+         63918        3    1) \$0 - \$100    29.99     1       0  Surburban       0   
+         63919        3  2) \$100 - \$200   149.96     1       0      Urban       0   
+         63924        4  2) \$100 - \$200   101.40     0       1      Urban       0   
+         63931        2    1) \$0 - \$100    29.99     1       0  Surburban       0   
+         63932        1  4) \$350 - \$500   426.36     1       1  Surburban       0   
+         63935        4  4) \$350 - \$500   353.47     1       1      Urban       0   
+         63941        2  2) \$100 - \$200   130.96     1       0      Urban       0   
+         63949        5    1) \$0 - \$100    86.79     1       0      Rural       0   
+         63953        5  2) \$100 - \$200   166.24     0       1      Urban       0   
+         63954        2    1) \$0 - \$100    93.97     1       0      Urban       0   
+         63955        1    1) \$0 - \$100    29.99     1       0  Surburban       0   
+         63961        4  3) \$200 - \$350   337.36     1       0      Urban       0   
+         63966        4  2) \$100 - \$200   170.03     1       0  Surburban       0   
+         63969        3    1) \$0 - \$100    67.78     0       1  Surburban       0   
+         63983        2    1) \$0 - \$100    83.03     0       1      Urban       0   
+         63988        6    1) \$0 - \$100    32.98     1       0  Surburban       0   
+         63990        6    1) \$0 - \$100    80.02     0       1  Surburban       0   
+         63993        4  4) \$350 - \$500   374.07     0       1  Surburban       0   
+         63999        1  4) \$350 - \$500   472.82     0       1  Surburban       0   
+         
+                     channel        segment  visit  conversion  spend  DM\_category  
+         4               Web  Womens E-Mail      0           0    0.0            4  
+         5             Phone  Womens E-Mail      1           0    0.0            1  
+         13              Web    Mens E-Mail      1           0    0.0            3  
+         16            Phone    Mens E-Mail      0           0    0.0            2  
+         22              Web    Mens E-Mail      1           0    0.0            2  
+         24              Web      No E-Mail      0           0    0.0            6  
+         27              Web    Mens E-Mail      0           0    0.0            3  
+         29              Web      No E-Mail      0           0    0.0            6  
+         30            Phone  Womens E-Mail      0           0    0.0            1  
+         32              Web    Mens E-Mail      0           0    0.0            3  
+         34              Web  Womens E-Mail      0           0    0.0            4  
+         35     Multichannel  Womens E-Mail      0           0    0.0            1  
+         41              Web    Mens E-Mail      1           0    0.0            2  
+         43            Phone      No E-Mail      0           0    0.0            6  
+         44              Web      No E-Mail      0           0    0.0            5  
+         46              Web      No E-Mail      0           0    0.0            6  
+         50              Web      No E-Mail      0           0    0.0            5  
+         55              Web      No E-Mail      0           0    0.0            6  
+         59            Phone  Womens E-Mail      0           0    0.0            1  
+         61            Phone  Womens E-Mail      0           0    0.0            4  
+         65            Phone  Womens E-Mail      0           0    0.0            1  
+         70              Web    Mens E-Mail      0           0    0.0            2  
+         72            Phone    Mens E-Mail      0           0    0.0            2  
+         76            Phone      No E-Mail      0           0    0.0            6  
+         79            Phone    Mens E-Mail      0           0    0.0            3  
+         81              Web      No E-Mail      1           0    0.0            5  
+         86            Phone  Womens E-Mail      0           0    0.0            4  
+         87              Web  Womens E-Mail      1           0    0.0            1  
+         95              Web    Mens E-Mail      0           0    0.0            2  
+         97            Phone  Womens E-Mail      0           0    0.0            1  
+         {\ldots}             {\ldots}            {\ldots}    {\ldots}         {\ldots}    {\ldots}          {\ldots}  
+         63890         Phone    Mens E-Mail      1           0    0.0            5  
+         63891         Phone  Womens E-Mail      0           0    0.0            1  
+         63893         Phone  Womens E-Mail      0           0    0.0            5  
+         63901           Web      No E-Mail      0           0    0.0            6  
+         63902         Phone  Womens E-Mail      0           0    0.0            5  
+         63904           Web  Womens E-Mail      1           0    0.0            1  
+         63906  Multichannel      No E-Mail      0           0    0.0            5  
+         63910         Phone    Mens E-Mail      0           0    0.0            2  
+         63911         Phone  Womens E-Mail      0           0    0.0            1  
+         63915         Phone      No E-Mail      0           0    0.0            6  
+         63916         Phone  Womens E-Mail      0           0    0.0            4  
+         63918           Web      No E-Mail      0           0    0.0            6  
+         63919           Web  Womens E-Mail      0           0    0.0            4  
+         63924           Web      No E-Mail      0           0    0.0            5  
+         63931           Web      No E-Mail      0           0    0.0            6  
+         63932  Multichannel    Mens E-Mail      1           0    0.0            5  
+         63935  Multichannel    Mens E-Mail      0           0    0.0            5  
+         63941         Phone    Mens E-Mail      0           0    0.0            2  
+         63949         Phone      No E-Mail      0           0    0.0            6  
+         63953         Phone      No E-Mail      0           0    0.0            5  
+         63954           Web      No E-Mail      1           0    0.0            6  
+         63955         Phone    Mens E-Mail      0           0    0.0            2  
+         63961           Web    Mens E-Mail      1           0    0.0            2  
+         63966           Web  Womens E-Mail      0           0    0.0            4  
+         63969           Web  Womens E-Mail      0           0    0.0            1  
+         63983         Phone      No E-Mail      0           0    0.0            5  
+         63988           Web    Mens E-Mail      0           0    0.0            2  
+         63990         Phone      No E-Mail      0           0    0.0            5  
+         63993         Phone  Womens E-Mail      0           0    0.0            1  
+         63999           Web    Mens E-Mail      0           0    0.0            3  
+         
+         [17551 rows x 13 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{recency}\PY{o}{\PYZlt{}}\PY{l+m+mi}{7}\PY{p}{]}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}
+         \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}        recency   history\_segment  history  mens  womens   zip\_code  newbie  \textbackslash{}
+         0           10    2) \$100 - \$200   142.44     1       0  Surburban       0   
+         1         -100              -100  -100.00  -100    -100       -100    -100   
+         2            7    2) \$100 - \$200   180.65     0       1  Surburban       1   
+         3            9    5) \$500 - \$750   675.83     1       0      Rural       1   
+         4         -100              -100  -100.00  -100    -100       -100    -100   
+         5         -100              -100  -100.00  -100    -100       -100    -100   
+         6            9    3) \$200 - \$350   280.20     1       0  Surburban       1   
+         7            9      1) \$0 - \$100    46.42     0       1      Urban       0   
+         8            9    5) \$500 - \$750   675.07     1       1      Rural       1   
+         9           10      1) \$0 - \$100    32.84     0       1      Urban       1   
+         10           7    5) \$500 - \$750   548.91     0       1      Urban       1   
+         11        -100              -100  -100.00  -100    -100       -100    -100   
+         12        -100              -100  -100.00  -100    -100       -100    -100   
+         13        -100              -100  -100.00  -100    -100       -100    -100   
+         14        -100              -100  -100.00  -100    -100       -100    -100   
+         15        -100              -100  -100.00  -100    -100       -100    -100   
+         16        -100              -100  -100.00  -100    -100       -100    -100   
+         17           9    2) \$100 - \$200   112.35     1       0      Rural       0   
+         18          11    3) \$200 - \$350   219.04     1       1  Surburban       0   
+         19        -100              -100  -100.00  -100    -100       -100    -100   
+         20           9      1) \$0 - \$100    29.99     0       1  Surburban       1   
+         21          11    2) \$100 - \$200   182.32     1       0  Surburban       0   
+         22        -100              -100  -100.00  -100    -100       -100    -100   
+         23        -100              -100  -100.00  -100    -100       -100    -100   
+         24        -100              -100  -100.00  -100    -100       -100    -100   
+         25        -100              -100  -100.00  -100    -100       -100    -100   
+         26          12    2) \$100 - \$200   115.39     0       1  Surburban       0   
+         27        -100              -100  -100.00  -100    -100       -100    -100   
+         28           7    4) \$350 - \$500   435.73     0       1      Urban       1   
+         29        -100              -100  -100.00  -100    -100       -100    -100   
+         {\ldots}        {\ldots}               {\ldots}      {\ldots}   {\ldots}     {\ldots}        {\ldots}     {\ldots}   
+         63970     -100              -100  -100.00  -100    -100       -100    -100   
+         63971     -100              -100  -100.00  -100    -100       -100    -100   
+         63972     -100              -100  -100.00  -100    -100       -100    -100   
+         63973        8    4) \$350 - \$500   471.80     1       0  Surburban       1   
+         63974        8      1) \$0 - \$100    73.65     0       1  Surburban       0   
+         63975       10  6) \$750 - \$1,000   883.92     1       0      Urban       1   
+         63976     -100              -100  -100.00  -100    -100       -100    -100   
+         63977        8      1) \$0 - \$100    29.99     0       1  Surburban       0   
+         63978       10    2) \$100 - \$200   102.01     0       1      Urban       1   
+         63979       10    2) \$100 - \$200   168.21     0       1  Surburban       0   
+         63980     -100              -100  -100.00  -100    -100       -100    -100   
+         63981     -100              -100  -100.00  -100    -100       -100    -100   
+         63982     -100              -100  -100.00  -100    -100       -100    -100   
+         63983     -100              -100  -100.00  -100    -100       -100    -100   
+         63984     -100              -100  -100.00  -100    -100       -100    -100   
+         63985        9      1) \$0 - \$100    29.99     1       0      Urban       0   
+         63986        9      1) \$0 - \$100    35.26     0       1      Urban       1   
+         63987     -100              -100  -100.00  -100    -100       -100    -100   
+         63988     -100              -100  -100.00  -100    -100       -100    -100   
+         63989       10    3) \$200 - \$350   304.30     1       1  Surburban       0   
+         63990     -100              -100  -100.00  -100    -100       -100    -100   
+         63991     -100              -100  -100.00  -100    -100       -100    -100   
+         63992     -100              -100  -100.00  -100    -100       -100    -100   
+         63993     -100              -100  -100.00  -100    -100       -100    -100   
+         63994        7      1) \$0 - \$100    86.46     0       1      Urban       0   
+         63995       10    2) \$100 - \$200   105.54     1       0      Urban       0   
+         63996     -100              -100  -100.00  -100    -100       -100    -100   
+         63997     -100              -100  -100.00  -100    -100       -100    -100   
+         63998     -100              -100  -100.00  -100    -100       -100    -100   
+         63999     -100              -100  -100.00  -100    -100       -100    -100   
+         
+                     channel        segment  visit  conversion  spend  DM\_category  
+         0             Phone  Womens E-Mail      0           0    0.0            4  
+         1              -100           -100   -100        -100 -100.0         -100  
+         2               Web  Womens E-Mail      0           0    0.0            1  
+         3               Web    Mens E-Mail      0           0    0.0            2  
+         4              -100           -100   -100        -100 -100.0         -100  
+         5              -100           -100   -100        -100 -100.0         -100  
+         6             Phone  Womens E-Mail      0           0    0.0            4  
+         7             Phone  Womens E-Mail      0           0    0.0            1  
+         8             Phone    Mens E-Mail      0           0    0.0            5  
+         9               Web  Womens E-Mail      0           0    0.0            1  
+         10            Phone  Womens E-Mail      1           0    0.0            1  
+         11             -100           -100   -100        -100 -100.0         -100  
+         12             -100           -100   -100        -100 -100.0         -100  
+         13             -100           -100   -100        -100 -100.0         -100  
+         14             -100           -100   -100        -100 -100.0         -100  
+         15             -100           -100   -100        -100 -100.0         -100  
+         16             -100           -100   -100        -100 -100.0         -100  
+         17              Web    Mens E-Mail      0           0    0.0            2  
+         18            Phone    Mens E-Mail      0           0    0.0            5  
+         19             -100           -100   -100        -100 -100.0         -100  
+         20            Phone      No E-Mail      0           0    0.0            5  
+         21            Phone    Mens E-Mail      0           0    0.0            2  
+         22             -100           -100   -100        -100 -100.0         -100  
+         23             -100           -100   -100        -100 -100.0         -100  
+         24             -100           -100   -100        -100 -100.0         -100  
+         25             -100           -100   -100        -100 -100.0         -100  
+         26            Phone    Mens E-Mail      1           0    0.0            3  
+         27             -100           -100   -100        -100 -100.0         -100  
+         28              Web      No E-Mail      0           0    0.0            5  
+         29             -100           -100   -100        -100 -100.0         -100  
+         {\ldots}             {\ldots}            {\ldots}    {\ldots}         {\ldots}    {\ldots}          {\ldots}  
+         63970          -100           -100   -100        -100 -100.0         -100  
+         63971          -100           -100   -100        -100 -100.0         -100  
+         63972          -100           -100   -100        -100 -100.0         -100  
+         63973  Multichannel  Womens E-Mail      0           0    0.0            4  
+         63974         Phone    Mens E-Mail      0           0    0.0            3  
+         63975         Phone      No E-Mail      0           0    0.0            6  
+         63976          -100           -100   -100        -100 -100.0         -100  
+         63977           Web      No E-Mail      1           0    0.0            5  
+         63978         Phone    Mens E-Mail      0           0    0.0            3  
+         63979         Phone      No E-Mail      0           0    0.0            5  
+         63980          -100           -100   -100        -100 -100.0         -100  
+         63981          -100           -100   -100        -100 -100.0         -100  
+         63982          -100           -100   -100        -100 -100.0         -100  
+         63983          -100           -100   -100        -100 -100.0         -100  
+         63984          -100           -100   -100        -100 -100.0         -100  
+         63985         Phone    Mens E-Mail      1           0    0.0            2  
+         63986           Web  Womens E-Mail      0           0    0.0            1  
+         63987          -100           -100   -100        -100 -100.0         -100  
+         63988          -100           -100   -100        -100 -100.0         -100  
+         63989           Web  Womens E-Mail      1           0    0.0            5  
+         63990          -100           -100   -100        -100 -100.0         -100  
+         63991          -100           -100   -100        -100 -100.0         -100  
+         63992          -100           -100   -100        -100 -100.0         -100  
+         63993          -100           -100   -100        -100 -100.0         -100  
+         63994           Web    Mens E-Mail      0           0    0.0            3  
+         63995           Web    Mens E-Mail      0           0    0.0            2  
+         63996          -100           -100   -100        -100 -100.0         -100  
+         63997          -100           -100   -100        -100 -100.0         -100  
+         63998          -100           -100   -100        -100 -100.0         -100  
+         63999          -100           -100   -100        -100 -100.0         -100  
+         
+         [64000 rows x 13 columns]
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
